@@ -1,4 +1,3 @@
-
 # Path to your oh-my-zsh installation
 ZSH="/home/jesus/.oh-my-zsh"
 
@@ -49,16 +48,44 @@ bindkey -M emacs '\e\e' fuck-command-line
 bindkey -M vicmd '\e\e' fuck-command-line
 bindkey -M viins '\e\e' fuck-command-line
 
+# Function to determine the correct bat command
+bat_command() {
+    if command -v bat &> /dev/null; then
+        echo "bat"
+    elif command -v batcat &> /dev/null; then
+        echo "batcat"
+    else
+        echo "cat"
+    fi
+}
+
+# Set FZF to use bat (or batcat) for previews
+export FZF_DEFAULT_OPTS="--preview '$(bat_command) --style=numbers --color=always {}'"
+
 # Functions
 fzf_open() {
     local file
-    file=$(fzf --preview 'batcat --style=numbers --color=always {}' --prompt='Select a file: ')
+    file=$(fzf --prompt='Select a file: ')
     [ -n "$file" ] && xdg-open "$file"
 }
 
-# Aliases for bat and cat
-alias cat='batcat'          # Use batcat for cat command
-alias batcat='cat'          # Use cat for batcat command
+# Alias for fzf_open
+alias fz='fzf_open'
+
+# Remove existing aliases if any
+unalias cat 2>/dev/null
+unalias batcat 2>/dev/null
+
+# Function for bat and cat
+cat() {
+    if command -v batcat &> /dev/null; then
+        batcat --paging=never "$@"
+    elif command -v bat &> /dev/null; then
+        bat --paging=never "$@"
+    else
+        /bin/cat "$@"
+    fi
+}
 
 # Aliases for exa
 alias ls='exa'
