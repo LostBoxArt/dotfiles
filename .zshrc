@@ -88,13 +88,13 @@ cat() {
 }
 
 # Aliases for exa
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -a'
-alias lla='exa -la'
-alias lt='exa --tree'
-alias llh='exa -lh'
-alias lld='exa -l --dirs-only'
+alias ls='exa --icons'
+alias ll='exa -l --icons'
+alias la='exa -a --icons'
+alias lla='exa -la --icons'
+alias lt='exa --tree --icons'
+alias llh='exa -lh --icons'
+alias lld='exa -l --icons --dirs-only'
 
 # Nala as default package manager
 alias apt='sudo nala'

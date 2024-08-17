@@ -25,6 +25,13 @@ curl -sS https://starship.rs/install.sh | sh
 sudo apt install -y snapd
 sudo snap install zed --classic
 
+# Install FiraCode Nerd Font
+mkdir -p ~/.local/share/fonts
+wget -q --show-progress https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+unzip FiraCode.zip -d ~/.local/share/fonts
+fc-cache -fv
+rm FiraCode.zip
+
 # Create .zshrc file
 cat <<EOL > ~/.zshrc
 # Path to your oh-my-zsh installation
@@ -116,13 +123,13 @@ cat() {
 }
 
 # Aliases for exa
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -a'
-alias lla='exa -la'
-alias lt='exa --tree'
-alias llh='exa -lh'
-alias lld='exa -l --dirs-only'
+alias ls='exa --icons'
+alias ll='exa -l --icons'
+alias la='exa -a --icons'
+alias lla='exa -la --icons'
+alias lt='exa --tree --icons'
+alias llh='exa -lh --icons'
+alias lld='exa -l --icons --dirs-only'
 
 # Nala as default package manager
 alias apt='sudo nala'
