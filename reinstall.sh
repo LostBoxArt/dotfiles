@@ -10,7 +10,7 @@ apt_install() {
 
 # Update and install necessary packages
 sudo apt-get update && sudo apt-get upgrade -y
-apt_install git zsh curl wget unzip python3-pip xdg-utils snapd zoxide
+apt_install git zsh curl wget unzip python3-pip xdg-utils zoxide
 
 # Install nala
 apt_install nala
@@ -52,7 +52,7 @@ mkdir -p ~/.config
 wget -q https://raw.githubusercontent.com/LostBoxArt/dotfiles/main/.config/starship.toml -O ~/.config/starship.toml
 
 # Install Zed editor
-sudo snap install zed --classic
+curl -f https://zed.dev/install.sh | sh
 
 # Install FiraCode Nerd Font
 mkdir -p ~/.local/share/fonts
@@ -85,9 +85,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Initialize Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# Add Zed to PATH
-export PATH="$PATH:/opt/zed"
 
 # Initialize zoxide
 eval "$(zoxide init zsh)"
