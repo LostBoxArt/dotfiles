@@ -44,6 +44,10 @@ rm exa_0.10.1-2_amd64.deb
 # Install Starship prompt
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 
+# Download and place starship.toml
+mkdir -p ~/.config
+wget -q https://raw.githubusercontent.com/LostBoxArt/dotfiles/main/.config/starship.toml -O ~/.config/starship.toml
+
 # Install Zed editor
 sudo snap install zed --classic
 
@@ -55,12 +59,12 @@ fc-cache -f
 rm FiraCode.zip
 
 # Create .zshrc file
-cat <<EOL > ~/.zshrc
+cat << 'EOL' > ~/.zshrc
 # Path to your oh-my-zsh installation
-export ZSH="\$HOME/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Ensure .local/bin is in PATH
-export PATH="\$HOME/.local/bin:\$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Zsh Theme Configuration
 ZSH_THEME=""
@@ -74,24 +78,24 @@ plugins=(
 )
 
 # Load oh-my-zsh
-source \$ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # Initialize Homebrew
-eval "\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Add Zed to PATH
-export PATH="\$PATH:/opt/zed"
+export PATH="$PATH:/opt/zed"
 
 # Initialize zoxide
-eval "\$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 
 # The Fuck Plugin Configuration
-eval "\$(thefuck --alias)"
+eval "$(thefuck --alias)"
 
 fuck-command-line() {
-    local FUCK="\$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck \$(fc -ln -1 | tail -n 1) 2> /dev/null)"
-    [[ -z \$FUCK ]] && echo -n -e "\a" && return
-    BUFFER=\$FUCK
+    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
+    [[ -z $FUCK ]] && echo -n -e "\a" && return
+    BUFFER=$FUCK
     zle end-of-line
 }
 zle -N fuck-command-line
@@ -106,8 +110,8 @@ export FZF_DEFAULT_OPTS="--preview 'bat --style=numbers --color=always {}'"
 # Functions
 fzf_open() {
     local file
-    file=\$(fzf --prompt='Select a file: ')
-    [ -n "\$file" ] && xdg-open "\$file"
+    file=$(fzf --prompt='Select a file: ')
+    [ -n "$file" ] && xdg-open "$file"
 }
 
 # Alias for fzf_open
@@ -126,10 +130,10 @@ alias lld='exa -l --icons --dirs-only'
 alias apt='sudo nala'
 
 # Starship Prompt
-eval "\$(starship init zsh)"
+eval "$(starship init zsh)"
 
 # Add ~/.local/bin to PATH for thefuck
-export PATH="\$PATH:~/.local/bin/"
+export PATH="$PATH:~/.local/bin/"
 EOL
 
 # Change default shell to zsh
