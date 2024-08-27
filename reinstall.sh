@@ -12,6 +12,9 @@ apt_install() {
 sudo apt-get update && sudo apt-get upgrade -y
 apt_install git zsh curl wget unzip python3-pip xdg-utils snapd zoxide
 
+# Install nala
+apt_install nala
+
 # Install Zsh if not already installed
 if ! command -v zsh &> /dev/null; then
     apt_install zsh
@@ -34,7 +37,7 @@ if ! command -v brew &> /dev/null; then
 fi
 
 # Install packages with Homebrew
-brew install bat fzf thefuck nala
+brew install bat fzf thefuck
 
 # Install exa
 wget -q http://de.archive.ubuntu.com/ubuntu/pool/universe/r/rust-exa/exa_0.10.1-2_amd64.deb
